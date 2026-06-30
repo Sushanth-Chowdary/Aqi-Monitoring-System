@@ -1,61 +1,64 @@
-# ESP32 Air Quality Monitoring System
+# Air-Quality-Monitoring-System
 
-## Documentation
+## Project Overview
+The Air-Quality-Monitoring-System is an advanced IoT-based solution designed to track and analyze air quality metrics in real time. Utilizing a dual ESP32 setup (Transmitter and Receiver) communicating over a 433 MHz LoRa network, this system accurately measures the concentration of harmful gases, particulate matter, and environmental factors, alongside precise GPS geolocation. The aggregated data is seamlessly synchronized with Firebase Realtime Database for real-time visualization and alerting via a companion Flutter mobile application.
 
-This repository contains the firmware and documentation for a real-time
-air quality monitoring system using ESP32, LoRa, GPS, BMP280,
-GP2Y1010AU0F and MICS-6814.
+## Core Features
+* **Real-Time Air Quality Tracking:** Continuous monitoring of CO, NH3, NO2, and PM2.5 levels.
+* **Environmental Sensing:** Accurate temperature and barometric pressure readings.
+* **GPS Geolocation:** Live spatial mapping of the sensor node.
+* **Long-Range Communication:** LoRa transceiver integration for robust data transmission over long distances without reliance on Wi-Fi at the edge.
+* **Cloud Integration:** Firebase Realtime Database backend for persistent storage and real-time syncing.
+* **Mobile Application:** Dedicated Flutter application for live monitoring, alerts, and historical data visualization.
 
-## Hardware
-
-See the dedicated hardware wiring guide:
-
-**➡️ [PIN_CONNECTIONS.md](PIN_CONNECTIONS.md)**
-
-This document contains all transmitter and receiver wiring tables.
-
-## Communication
-
-Transmitter → SX1278 LoRa → Receiver → Wi-Fi → Firebase Realtime
-Database → Flutter App
-
-## LoRa Payload
-
-``` text
-LAT:17.385044,LON:78.486671,TEMP:29.54,PRESS:1008.63,PM25:15.62,CO:58.00,NH3:36.00,NO2:34.00
+## Directory Tree
+```text
+Air-Quality-Monitoring-System/
+├── README.md
+├── PIN_CONNECTIONS.md
+├── SYSTEM_ARCHITECTURE.md
+├── FIREBASE_STRUCTURE.md
+├── INSTALLATION.md
+└── TROUBLESHOOTING_AND_FUTURE_SCOPE.md
 ```
 
-## Firebase Structure
+## Bill of Materials (BOM)
 
-Each sensor is stored with its own Location object and value:
+| Component | Description | Quantity |
+| :--- | :--- | :--- |
+| **ESP32** | Microcontroller with built-in Wi-Fi & Bluetooth | 2 |
+| **MICS-6814** | Multi-gas sensor (CO, NH3, NO2) | 1 |
+| **GP2Y1010AU0F** | Optical dust/particulate matter (PM2.5) sensor | 1 |
+| **BMP280** | Temperature and barometric pressure sensor | 1 |
+| **NEO-6M** | GPS module for geolocation tracking | 1 |
+| **SX1278 RA-02** | LoRa Transceiver Module (433 MHz) | 2 |
 
--   CO
--   NH3
--   NO
--   PM2
--   Temperature
--   Pressure
--   Common Location
+## Sensor Specifications
 
-Refer to the project report for implementation details.
+| Sensor | Parameter Measured | Typical Range | Unit |
+| :--- | :--- | :--- | :--- |
+| **MICS-6814** | Carbon Monoxide (CO) | 1 – 1000 | ppm |
+| **MICS-6814** | Ammonia (NH3) | 1 – 500 | ppm |
+| **MICS-6814** | Nitrogen Dioxide (NO2) | 0.05 – 10 | ppm |
+| **GP2Y1010AU0F**| Particulate Matter (PM2.5)| 0 – 500 | µg/m³ |
+| **BMP280** | Temperature | -40 to +85 | °C |
+| **BMP280** | Barometric Pressure | 300 to 1100 | hPa |
+| **NEO-6M** | Location | Global | Lat/Lon |
 
-## Software
+## Software Workflow & Flutter Application
+### High-Level Workflow
+1. **Data Acquisition:** The Transmitter ESP32 collects raw analog and digital signals from the connected sensors and GPS module.
+2. **Data Transmission:** The readings are formatted into a structured payload and transmitted over LoRa (433 MHz) to the Receiver node.
+3. **Cloud Synchronization:** The Receiver ESP32 parses the incoming LoRa payload and uploads the structured data directly to Firebase Realtime Database over a local Wi-Fi connection.
+4. **Client Visualization:** The Flutter application listens to Firebase streams and updates the UI in real time.
 
--   Arduino IDE
--   ESP32 Core
--   LoRa
--   TinyGPS++
--   Adafruit BMP280
--   ArduinoJson
--   WiFi
--   HTTPClient
+### Mobile Application (Flutter)
+> **Note:** The source code for the companion Flutter application is maintained in a separate repository to modularize the codebase and manage size effectively.
 
-## Setup
-
-1.  Wire the hardware using **PIN_CONNECTIONS.md**.
-2.  Upload the transmitter sketch.
-3.  Upload the receiver sketch.
-4.  Configure Wi-Fi and Firebase.
-5.  Power both ESP32 boards.
-6.  Verify LoRa communication.
-7.  Check Firebase updates.
+**Key App Features:**
+* **Real-Time Monitoring:** Live dashboard displaying current AQI metrics and environmental conditions.
+* **Live GPS Tracking:** Map integration pinpointing the exact location of the sensor node.
+* **Firebase Integration:** Seamless real-time data synchronization.
+* **AQI Visualization:** Color-coded indicators representing overall air quality safety levels.
+* **Historical Graphs:** Interactive charts for analyzing trends over time.
+* **Alerts:** Push notifications and visual warnings when hazardous gas or PM2.5 thresholds are breached.

@@ -1,79 +1,53 @@
-# ESP32 Air Quality Monitoring System - Pin Connections
+# Pin Connections & Wiring Mapping
 
-## Transmitter ESP32
+This document provides a comprehensive wiring guide for the Transmitter Node (ESP32). It outlines the pin assignments for all sensors and communication modules.
 
-### MICS-6814
+## Transmitter Node (ESP32) Wiring
 
-  Sensor Pin   ESP32 Pin
-  ------------ -----------
-  CO           GPIO34
-  NH3          GPIO35
-  NO2          GPIO32
-  VCC          5V
-  GND          GND
+### 1. Analog Sensors (MICS-6814 & GP2Y1010AU0F)
+The multi-gas sensor and the dust sensor output analog voltages that require the ESP32's internal ADC.
 
-### GP2Y1010AU0F
+| Sensor Pin | ESP32 GPIO | Description |
+| :--- | :--- | :--- |
+| **MICS-6814 CO** | GPIO34 | Carbon Monoxide analog output |
+| **MICS-6814 NH3** | GPIO35 | Ammonia analog output |
+| **MICS-6814 NO2** | GPIO32 | Nitrogen Dioxide analog output |
+| **GP2Y A-OUT** | GPIO36 (VP)| PM2.5 analog voltage output |
+| **GP2Y I-LED** | GPIO33 | LED trigger for dust sampling |
+| **VCC / GND** | 3.3V / 5V / GND| Power supply as required per module |
 
-  Sensor Pin    ESP32 Pin
-  ------------- -----------
-  Vo            GPIO36
-  LED Control   GPIO2
-  VCC           5V
-  GND           GND
+### 2. I2C Bus (BMP280)
+The BMP280 temperature and pressure sensor communicates via the standard I2C protocol.
 
-### BMP280
+| BMP280 Pin | ESP32 GPIO | Description |
+| :--- | :--- | :--- |
+| **SDA** | GPIO21 | I2C Serial Data |
+| **SCL** | GPIO22 | I2C Serial Clock |
+| **VCC** | 3.3V | Power Supply |
+| **GND** | GND | Ground |
 
-  Sensor Pin   ESP32 Pin
-  ------------ -----------
-  SDA          GPIO21
-  SCL          GPIO22
-  VIN          3.3V
-  GND          GND
+### 3. Hardware UART (NEO-6M GPS)
+The NEO-6M GPS module streams NMEA sentences over a serial interface.
 
-### NEO-6M GPS
+| NEO-6M Pin | ESP32 GPIO | Description |
+| :--- | :--- | :--- |
+| **TX** | GPIO16 (RX2) | Transmits NMEA data to ESP32 |
+| **RX** | GPIO17 (TX2) | Receives commands (optional) |
+| **VCC** | 3.3V / 5V | Power Supply |
+| **GND** | GND | Ground |
 
-  GPS Pin   ESP32 Pin
-  --------- -----------
-  TX        GPIO16
-  RX        GPIO17
-  VCC       3.3V/5V
-  GND       GND
+### 4. SPI Bus (SX1278 RA-02 LoRa)
+The LoRa transceiver requires a high-speed SPI bus along with dedicated control pins for synchronization.
 
-### SX1278 LoRa
+| SX1278 Pin | ESP32 GPIO | Description |
+| :--- | :--- | :--- |
+| **SCK** | GPIO18 | SPI Clock |
+| **MISO** | GPIO19 | SPI Master In Slave Out |
+| **MOSI** | GPIO23 | SPI Master Out Slave In |
+| **NSS / CS** | GPIO5 | SPI Chip Select (Active Low) |
+| **RESET** | GPIO14 | Hardware Reset Pin |
+| **DIO0** | GPIO26 | Interrupt pin (Tx/Rx Done) |
+| **VCC** | 3.3V | Power Supply |
+| **GND** | GND | Ground |
 
-  Module Pin   ESP32 Pin
-  ------------ -----------
-  NSS          GPIO5
-  SCK          GPIO18
-  MISO         GPIO19
-  MOSI         GPIO23
-  RESET        GPIO14
-  DIO0         GPIO26
-  VCC          3.3V
-  GND          GND
-
-## Receiver ESP32
-
-### SX1278 LoRa
-
-  Module Pin   ESP32 Pin
-  ------------ -----------
-  NSS          GPIO5
-  SCK          GPIO18
-  MISO         GPIO19
-  MOSI         GPIO23
-  RESET        GPIO14
-  DIO0         GPIO26
-  VCC          3.3V
-  GND          GND
-
-### Wi-Fi
-
-Built into the ESP32. No external wiring required.
-
-## Notes
-
--   Never power the SX1278 from 5V.
--   Use a common GND for all modules.
--   BMP280 uses the I²C bus (GPIO21/22).
--   GPS uses UART1 (GPIO16/17).
+> **Warning:** Ensure that logic levels for the LoRa module and sensors match the 3.3V logic level of the ESP32. Applying 5V to ESP32 GPIO pins may damage the microcontroller.
