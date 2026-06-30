@@ -1,0 +1,9 @@
+| Function             | Arduino UNO Pin | Suggested ESP32 GPIO |
+| -------------------- | --------------- | -------------------- |
+| CO (MICS-6814)       | A0              | GPIO34               |
+| NH₃ (MICS-6814)      | A1              | GPIO35               |
+| NO₂ (MICS-6814)      | A2              | GPIO32               |
+| Dust Sensor Vo       | A0              | GPIO33               |
+| Dust LED Control     | D2              | GPIO27               |
+| GPS RX (from GPS TX) | D4              | GPIO16 (UART1 RX)    |
+| GPS TX (to GPS RX)   | D3              | GPIO17 (UART1 TX)    |
