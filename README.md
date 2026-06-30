@@ -2,6 +2,8 @@
 
 ## Project Overview
 The Air-Quality-Monitoring-System is an advanced IoT-based solution designed to track and analyze air quality metrics in real time. Utilizing a dual ESP32 setup (Transmitter and Receiver) communicating over a 433 MHz LoRa network, this system accurately measures the concentration of harmful gases, particulate matter, and environmental factors, alongside precise GPS geolocation. The aggregated data is seamlessly synchronized with Firebase Realtime Database for real-time visualization and alerting via a companion Flutter mobile application.
+<img width="4000" height="3000" alt="Sender" src="https://github.com/user-attachments/assets/d2bec1b0-6fbe-4907-9f8d-3ea817135730" />
+<img width="4000" height="3000" alt="Reciver" src="https://github.com/user-attachments/assets/191706b1-a780-48b7-b32e-08a7cbcd7fa3" />
 
 ## Core Features
 * **Real-Time Air Quality Tracking:** Continuous monitoring of CO, NH3, NO2, and PM2.5 levels.
