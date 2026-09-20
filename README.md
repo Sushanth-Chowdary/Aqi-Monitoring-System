@@ -55,7 +55,7 @@ Air-Quality-Monitoring-System/
 4. **Client Visualization:** The Flutter application listens to Firebase streams and updates the UI in real time.
 
 ### Mobile Application (Flutter)
-> **Note:** The source code for the companion Flutter application is maintained in a separate repository to modularize the codebase and manage size effectively.
+> **Note:** The source code for the companion Flutter application is maintained  in a separate repository to modularize the codebase and manage size effectively.
 
 **Key App Features:**
 * **Real-Time Monitoring:** Live dashboard displaying current AQI metrics and environmental conditions.
