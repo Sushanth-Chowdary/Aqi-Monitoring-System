@@ -59,7 +59,7 @@ Air-Quality-Monitoring-System/
 
 **Key App Features:**
 * **Real-Time Monitoring:** Live dashboard displaying current AQI metrics and environmental conditions.
-* **Live GPS Tracking:** Map integration pinpointing the exact location of the sensor node.
+* **Live GPS Tracking:** Maped integration pinpointing the exact location of the sensor node.
 * **Firebase Integration:** Seamless real-time data synchronization.
 * **AQI Visualization:** Color-coded indicators representing overall air quality safety levels.
 * **Historical Graphs:** Interactive charts for analyzing trends over time.
